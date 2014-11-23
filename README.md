@@ -8,6 +8,6 @@ still somewhat easy to memorize.
 Inspiration
 -----------
 
-The main inspiration for the project comes from the well-know XKCD comic,
+The main inspiration for the project comes from the well-known XKCD comic,
 seems like a good way to step away from correct horses with battery staples.
 
