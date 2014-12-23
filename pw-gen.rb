@@ -3,14 +3,21 @@ require 'pry'
 
 class PasswordGenerator
   attr_accessor :file_name 
+
   def initialize(file_name)
     @file_name = file_name
   end
 
+  # === rand_num(n) - n = upper lmt.
+  # Syntactic sugar for SecureRandom RNG
+  # Produce random number {0 - n} 
   def rand_num(n)
     SecureRandom.random_number(n)
   end
   
+  # === build_word_list
+  # Read words from a dictionary file
+  # supplied on class initialization
   def build_word_list
     list = []
     if File.readable? @file_name 
@@ -23,6 +30,8 @@ class PasswordGenerator
     return list
   end
   
+  # === list_select(list,count)
+  # Randomly Select cnt number of items from list
   def list_select(list, cnt=5)
     nl = []
     cnt.times do
@@ -59,8 +68,7 @@ end
 # == Password Generator for Modified XKCD
 # Set WORD_LIST environment variable to 
 # desired dictionary of words
-file_name = ENV['WORD_LIST'].to_s 
-
+file_name = ENV['WORD_LIST'] ? ENV['WORD_LIST'].to_s : "" 
 pass_gen = PasswordGenerator.new(file_name)
 dict_list = pass_gen.build_word_list
 
@@ -71,4 +79,3 @@ modified_words = pass_gen.insert_separator(base_words, spec_num)
 password = "#{modified_words[1]}#{modified_words[2]}#{modified_words[0]}"
 
 puts password
-binding.pry
