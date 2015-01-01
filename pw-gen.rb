@@ -1,16 +1,21 @@
+#!/usr/bin/env ruby
 require 'securerandom'
 require 'pry'
 
 class PasswordGenerator
   attr_accessor :file_name 
-
+  
+  # === initialize(file_name)
+  # Create a new instance of the PasswordGenerator
+  # setting @file_name to file_name which should 
+  # point to a wordlist dictionary file
   def initialize(file_name)
     @file_name = file_name
   end
 
-  # === rand_num(n) - n = upper lmt.
+  # === rand_num(n)
   # Syntactic sugar for SecureRandom RNG
-  # Produce random number {0 - n} 
+  # Produce random number between 0 & n inclusive 
   def rand_num(n)
     SecureRandom.random_number(n)
   end
@@ -31,7 +36,7 @@ class PasswordGenerator
   end
   
   # === list_select(list,count)
-  # Randomly Select cnt number of items from list
+  # Randomly select count number of items from list
   def list_select(list, cnt=5)
     nl = []
     cnt.times do
@@ -40,13 +45,11 @@ class PasswordGenerator
     end
     return nl
   end
-  
-  def special_number_select(spec_string, cnt)
-    sp = []
-    sp = list_select(spec_string.chars, cnt)
-    return sp.join
-  end
-  
+
+  # === insert_separator(list, spec_string)
+  # For each list item, build strings of 
+  # randomly chosen special characters/numbers 
+  # to insert at a random offset
   def insert_separator(list, spec_string)
     new_list = []
     spec_string = spec_string.chars
@@ -57,6 +60,9 @@ class PasswordGenerator
     return list 
   end
 
+  # === build_spec_num
+  # Build a string containing special characters
+  # and numbers 0 -9
   def build_spec_num
     special_chars = "~`!@\#$%^*()_-+={}[]:\";'<>?,./\\|"
     numbers = (0..9).to_a.join
